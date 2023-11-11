@@ -1,16 +1,21 @@
 import './App.css'
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import Home from './components/Home'
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import {Routes, Route } from "react-router-dom";
+
+/* import axios from 'axios'
+import React, { useState, useEffect } from 'react' */
 
 function App() {
-  const [books , setBooks] = useState([])
+/*   const [books , setBooks] = useState([])
   const [name , setName] = useState('')
   const [email , setEmail] = useState('')
-  const [password , setPassword] = useState('')
+  const [password , setPassword] = useState('') */
 
-const handleSubmit = (e) => {
+/* const handleSubmit = (e) => {
   e.preventDefault()
-  axios.post('http://localhost:3001/register', {
+  axios.post('http://localhost:5000/register', {
     user: {
       name: name,
       email: email,
@@ -27,9 +32,9 @@ const handleSubmit = (e) => {
   }
   )
 }
+ */
 
-
-  useEffect(() => {
+/*   useEffect(() => {
     axios.get('https://rails-production-9fc0.up.railway.app/api/books')
     .then(res => {
       setBooks(res.data)
@@ -39,31 +44,18 @@ const handleSubmit = (e) => {
       console.log(err)
     })
   }, [])
-
+ */
   return (
     <div>
-      <section>
-      <h1>Books</h1>
-      {books.map(book => {
-        return (
-          <div key={book.id}>
-            <h2>{book.title}</h2>
-            <p>{book.price}</p>
-          </div>
-        )
-      })}
-      </section>
-      <section>
-        <h1>Register</h1>
-        <form onSubmit={handleSubmit} >
-          <input type="text" placeholder="Name" onChange={e => setName(e.target.value)} />
-          <input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
-          <button type="submit">Register</button>
-        </form>
-      </section>
+      <Home />
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
+
 
     </div>
+    
   );
 }
 
