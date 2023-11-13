@@ -1,11 +1,13 @@
 import React from 'react'
-import Button from '@mui/material/Button';
+import Container from '@mui/material/Container'
 
 const Home = () => {
   return (
-    <div>
-    <Button variant="outlined">Hello world</Button>
-    </div>
+    <main>
+      <Container maxWidth="sm"/>
+
+
+    </main>
   )
 }
 
