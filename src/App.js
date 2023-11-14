@@ -2,6 +2,7 @@ import './App.css'
 import Home from './components/Home'
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import Navbar from './components/Navbar';
 import {Routes, Route } from "react-router-dom";
 
 /* import axios from 'axios'
@@ -47,6 +48,7 @@ function App() {
  */
   return (
     <div>
+      <Navbar />
       <Home />
       <Routes>
         <Route path="/signup" element={<SignUp />} />
