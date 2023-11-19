@@ -10,18 +10,36 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios'
 
 const SignUp = () => {
     const defaultTheme = createTheme();
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+        
+         axios.post('http://localhost:5000/register', { 
+          user: {
             name: data.get('name'),
-          email: data.get('email'),
-          password: data.get('password'),
-        });
+            email: data.get('email'),
+            password: data.get('password')
+          }
+        })
+
+        .then(res => {
+          console.log(res)
+        }
+        )
+        .catch(err => {
+          console.log(err)
+        }
+        )
+
+
+
+
       };
 
 return (
@@ -42,7 +60,7 @@ return (
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
 
@@ -83,12 +101,12 @@ return (
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container>
         
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
