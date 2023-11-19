@@ -13,6 +13,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios'
 
 const SignUp = () => {
+
+
     const defaultTheme = createTheme();
 
 
@@ -20,13 +22,16 @@ const SignUp = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         
-         axios.post('http://localhost:5000/register', { 
+         axios.post('https://rails-production-ed19.up.railway.app/register', { 
           user: {
             name: data.get('name'),
             email: data.get('email'),
             password: data.get('password')
           }
+    
+
         })
+
 
         .then(res => {
           console.log(res)
