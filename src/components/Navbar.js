@@ -8,18 +8,11 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import { useEffect } from 'react';
 import logo from '../images/logo.png'
 
 
 const Navbar = ({logged, loggedIn}) => {
-
-  useEffect(() => {
-    loggedIn()
-  }
-  , [])
-
-  return (
+return (
     <>
   <AppBar position="static" sx={{ backgroundColor: '#D64430', height: "5vw" }}>
       <Toolbar>
@@ -50,7 +43,7 @@ const Navbar = ({logged, loggedIn}) => {
   localStorage.removeItem('token')
   loggedIn()
 }
-}>Logout</Button> : <Button color="inherit" component={Link} to="/signin">Login</Button>z}
+}>Logout</Button> : <Button color="inherit" component={Link} to="/signin">Login</Button>}
 
 
   

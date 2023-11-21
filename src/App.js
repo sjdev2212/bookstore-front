@@ -3,7 +3,7 @@ import Home from './components/Home'
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Navbar from './components/Navbar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {Routes, Route } from "react-router-dom";
 
 /* import axios from 'axios'
@@ -16,16 +16,11 @@ function App() {
 
   const loggedIn = () => {
     localStorage.getItem('token') ? setLogged(true) : setLogged(false)
-
-
-    
-
-  }
-
-
-
-
-
+ }
+ useEffect(() => {
+  loggedIn();
+}, [logged]);
+  
   return (
     <div>
       <Navbar  logged={logged} 
@@ -35,7 +30,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn 
+        loggedIn={loggedIn}
+         />} />
       </Routes>
 
 

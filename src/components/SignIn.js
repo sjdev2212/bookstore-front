@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const SignIn = () => {
+const SignIn = ({loggedIn}) => {
   const navigate = useNavigate();
     const defaultTheme = createTheme();
     const handleSubmit = (event) => {
@@ -29,6 +29,7 @@ const SignIn = () => {
         .then(res => {
           console.log(res.data)
           localStorage.setItem('token', res.data.token)
+          loggedIn()
           navigate('/');
         }
         )
