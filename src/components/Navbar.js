@@ -50,7 +50,7 @@ const Navbar = ({logged, loggedIn}) => {
   localStorage.removeItem('token')
   loggedIn()
 }
-}>Logout</Button> : <Button color="inherit" component={Link} to="/signin">Login</Button>}
+}>Logout</Button> : <Button color="inherit" component={Link} to="/signin">Login</Button>z}
 
 
   
