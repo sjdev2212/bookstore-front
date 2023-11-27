@@ -9,6 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import logo from '../images/logo.png'
+import { toast } from 'react-hot-toast';
 
 
 const Navbar = ({logged, loggedIn}) => {
@@ -41,6 +42,15 @@ return (
   
 {logged ?  <Button color="inherit" onClick={() => {
   localStorage.removeItem('token')
+  toast.success('Until next time!', {
+    duration: 4000,
+    position: 'top-center',
+    icon: '👏',
+    iconTheme: {
+      primary: '#000',
+      secondary: '#fff',
+    },
+  });
   loggedIn()
 }
 }>Logout</Button> : <Button color="inherit" component={Link} to="/signin">Login</Button>}

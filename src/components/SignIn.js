@@ -12,10 +12,18 @@ import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import toast  from 'react-hot-toast';
+
+
 
 const SignIn = ({loggedIn}) => {
   const navigate = useNavigate();
     const defaultTheme = createTheme();
+
+
+
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -28,13 +36,22 @@ const SignIn = ({loggedIn}) => {
         })
         .then(res => {
           console.log(res.data)
+          toast.success('Welcome back!', {
+            duration: 4000,
+            position: 'top-center',
+            icon: '👏',
+            iconTheme: {
+              primary: '#000',
+              secondary: '#fff',
+            },
+          });
           localStorage.setItem('token', res.data.token)
           loggedIn()
           navigate('/');
         }
         )
         .catch(err => {
-          console.log(err.response.data)
+          console.log(err.data)
         }
         )
 

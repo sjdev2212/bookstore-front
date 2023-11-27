@@ -5,9 +5,9 @@ import SignIn from './components/SignIn';
 import Navbar from './components/Navbar';
 import { useState, useEffect } from 'react';
 import {Routes, Route } from "react-router-dom";
+import {Toaster} from  'react-hot-toast'
 
-/* import axios from 'axios'
-import React, { useState, useEffect } from 'react' */
+
 
 function App() {
 
@@ -23,6 +23,7 @@ function App() {
   
   return (
     <div>
+      <Toaster />
       <Navbar  logged={logged} 
       loggedIn={loggedIn}
       />
