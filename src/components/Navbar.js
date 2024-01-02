@@ -15,7 +15,11 @@ import { toast } from 'react-hot-toast';
 const Navbar = ({logged, loggedIn}) => {
 return (
     <>
-  <AppBar position="static" sx={{ backgroundColor: '#D64430', height: "5vw" }}>
+  <AppBar position="fixed" sx={{ backgroundColor: '#D64430',
+   height: "5vw", 
+   zIndex: "1000",
+   
+   }}>
       <Toolbar>
     
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
