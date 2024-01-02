@@ -3,6 +3,7 @@ import Home from './components/Home'
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Navbar from './components/Navbar';
+import Book from './components/Book';
 import { useState, useEffect } from 'react';
 import {Routes, Route } from "react-router-dom";
 import {Toaster} from  'react-hot-toast'
@@ -36,6 +37,7 @@ function App() {
         <Route path="/signin" element={<SignIn 
         loggedIn={loggedIn}
          />} />
+        <Route path="/book/:id" element={<Book />} />
       </Routes>
 
 

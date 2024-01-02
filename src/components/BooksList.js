@@ -18,8 +18,9 @@ const BooksList = ({logged}) => {
 
      const navigate =  useNavigate();
 
-      const tester = () => {
-        navigate('/signin')
+      const tester = (id) => {
+        navigate(`/book/${id}`)
+        console.log(id)
       }
     
 
@@ -55,10 +56,9 @@ const BooksList = ({logged}) => {
         {books.map((book, index) => (
           <Grid item key={index} xs={12} sm={6} md={4}>
             <Card
-            onClick={tester}
+            onClick={() => tester(book.id)}
               elevation={6}
-             
-              sx={{
+             sx={{
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -105,7 +105,19 @@ const BooksList = ({logged}) => {
           </Grid>
         ))}
       </Grid>
-      <Pagination count={10} />
+      <Pagination 
+      count={10}
+      variant="outlined"
+      shape="rounded"
+      size="large"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '2vw',
+        marginBottom: '2vw',
+      }}
+       />
     </Container>
   );
 };
