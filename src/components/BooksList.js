@@ -1,21 +1,31 @@
 import React from 'react';
 import {
+  Button,
   Card,
   CardContent,
   CardMedia,
   Typography,
   Grid,
   Container,
+  Pagination
 } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
-const BooksList = () => {
+const BooksList = ({logged}) => {
      const [books, setBooks] = useState([]);
+
+     const navigate =  useNavigate();
+
+      const tester = () => {
+        navigate('/signin')
+      }
+    
+
     useEffect(() => {
-        axios.get('https://rails-production-ed19.up.railway.app/api/books')
+        axios.get('http://localhost:5005/api/books')
         .then(res => {
-          console.log(res.data)
           setBooks(res.data)
         }
         )
@@ -24,19 +34,51 @@ const BooksList = () => {
         }
         )
       }
-        , [])
+        , [ logged])
   return (
     <Container maxWidth="md">
+    <Typography variant="h1" align="center" 
+         color="#FF5F1F"
+          fontSize={"4vw"} 
+          fontWeight={"semibold"}
+          marginBottom={"2vw"}
+          margin={"2vw"}
+          
+          >
+
+      Welcome to Bookshelf!
+    </Typography>
+
+    {books.length === 0 ? "no books to show" : ""}
+
       <Grid container spacing={3}>
         {books.map((book, index) => (
           <Grid item key={index} xs={12} sm={6} md={4}>
-            <Card>
+            <Card
+            onClick={tester}
+              elevation={6}
+             
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                borderRadius: '10px',
+                ":hover": {
+                  transform: "scale(1.04)",
+                  transition: "all 0.5s ease-in-out",
+                }
+
+                
+              }}
+            >
               <CardMedia
                 component="img"
-                height="140"
+                height="160"
                 alt={book.title}
-                src={book.image} // Replace with the actual image source
+                src={book.image_url} 
+             
               />
+
               <CardContent>
                 <Typography variant="h6" component="div">
                   {book.title}
@@ -44,10 +86,26 @@ const BooksList = () => {
                 <Typography color="textSecondary">{`Author: ${book.author}`}</Typography>
                 <Typography color="textSecondary">{`Price: ${book.price}`}</Typography>
               </CardContent>
+              {logged ?  <CardContent
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+        
+            </CardContent> : <></>}
+
+
+
+  
+
+
             </Card>
           </Grid>
         ))}
       </Grid>
+      <Pagination count={10} />
     </Container>
   );
 };

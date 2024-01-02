@@ -2,11 +2,12 @@ import React from 'react'
 import Container from '@mui/material/Container'
 import BooksList from './BooksList'
 
-const Home = () => {
+const Home = ({logged}) => {
   return (
     <main>
+      {console.log(logged)}
       <Container maxWidth="lg">
-        <BooksList />
+        <BooksList logged={logged} />
       </Container>
 
 
