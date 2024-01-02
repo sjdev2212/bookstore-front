@@ -5,6 +5,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
+import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import styled from 'styled-components';
 import axios from 'axios';
 
 
@@ -13,6 +16,23 @@ const Book = () => {
     const { id } = useParams()
     const [book, setBook] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const StyledFavoriteIcon = styled(FavoriteIcon)`
+  grid-area: 2 / 2 / 3 / 3;
+  justify-self: end;
+  align-self: end;
+  margin-right: 1vw;
+  margin-bottom: 1vw;
+  color: #ff5f1f;
+  font-size: 3vw;
+  cursor: pointer;
+  transition: color 0.3s ease;
+&:hover {
+    color: red;
+    scale: 1.2;
+    transition: color 1.2s ease;
+  }
+`
 
     useEffect(() => {
         axios.get(`http://localhost:5005/api/books/${id}`)
@@ -70,6 +90,20 @@ const Book = () => {
          image={book.image}
          alt={book.title}
         />
+        <StyledFavoriteIcon />
+        <ShoppingCartIcon 
+        style={{gridArea: '2 / 2 / 3 / 3',
+        justifySelf: 'start',
+        alignSelf: 'start',
+        marginBottom: '1vw',
+        color: '#FF5F1F',
+        fontSize: '3vw',
+        cursor: 'pointer',
+        position: 'relative',
+        right: '28.3vw',
+        top: '1.8vw',
+        }}
+         />
         </Card>
         </Container>
 
