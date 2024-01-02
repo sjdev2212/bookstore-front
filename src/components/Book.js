@@ -5,16 +5,38 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import styled from "styled-components";
+import Modal from '@mui/material/Modal';
 import axios from "axios";
 
 const Book = () => {
   const { id } = useParams();
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const styleModal = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: '#D64430',
+    border: '2px solid #000',
+    borderRadius: "10px",
+    boxShadow: 24,
+    p: 6,
+    fontSize: "1.3vw",
+    fontWeight: "semibold",
+    color: "white",
+
+  };
 
   const StyledFavoriteIcon = styled(FavoriteIcon)`
      margin-right: 12vw;
@@ -120,7 +142,7 @@ const Book = () => {
             fontSize={"1.1vw"}
             fontWeight={"semibold"}
             >
-         Summary: {book.description.slice(0,15)}...<Link>read more</Link>
+         Summary: {book.description.slice(0,15)}...<Link onClick={handleOpen}>read more</Link>
             </Typography>
             <br></br>
             <br></br>
@@ -146,18 +168,52 @@ const Book = () => {
             <br></br>
             <StyledFavoriteIcon  />
           <StyledShoppingCartIcon />
+          <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={styleModal}>
+          <Typography id="modal-modal-title" variant="h4" 
+          component="h2"
+            color="white"
+            fontSize={"2.5vw"}
+            fontWeight={"semibold"}
+            marginBottom={"1vw"}
+            align="center"
+
+          
+          >
+            {book.title}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{
+             mt: 2,
+            color: "white",
+            fontSize: "1.5vw",
+            fontWeight: "semibold",
+            marginBottom: "1vw",
+            textAlign: "justify",
+            
+        
+        }}>
+           {book.description}
+          </Typography>
+        </Box>
+      </Modal>
           
           </CardContent>
           <CardMedia
             component="img"
-            height="550"
+            height="500"
             image={book.image}
             alt={book.title}
             sx = {{
-                width: "400px",
-                height: "600px",
+                width: "420px",
+                height: "550px",
                 marginTop: "2vw",
                 size : "cover",
+                borderRadius: "10px",
                 }}
 
             

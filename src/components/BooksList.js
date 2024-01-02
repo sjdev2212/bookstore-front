@@ -77,6 +77,17 @@ const BooksList = ({ logged }) => {
                 height="160"
                 alt={book.title}
                 src={book.image_url}
+                sx={
+                  {
+                 width: "50%",
+                  height: "50%",
+                  objectFit: "cover",
+                  margin: "auto",
+                  marginTop: "2vw",
+                  borderRadius: "10px",
+
+                  }
+                }
               />
 
               <CardContent>
