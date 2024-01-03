@@ -13,7 +13,7 @@ import styled from "styled-components";
 import Modal from '@mui/material/Modal';
 import axios from "axios";
 
-const Book = () => {
+const Book = ({logged}) => {
   const { id } = useParams();
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -185,8 +185,10 @@ const Book = () => {
             </Typography>
             <br></br>
             <br></br>
+            {logged ? (
+              <>
             <StyledFavoriteIcon  />
-          <StyledShoppingCartIcon />
+          <StyledShoppingCartIcon /> </>) : ""}
           <Modal
         open={open}
         onClose={handleClose}

@@ -37,7 +37,9 @@ function App() {
         <Route path="/signin" element={<SignIn 
         loggedIn={loggedIn}
          />} />
-        <Route path="/book/:id" element={<Book />} />
+        <Route path="/book/:id" element={<Book  
+        logged={logged}
+        />} />
       </Routes>
 
 

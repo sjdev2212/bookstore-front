@@ -17,9 +17,9 @@ const BooksList = ({ logged }) => {
 
   const navigate = useNavigate();
 
-  const tester = (id) => {
+  const redirect = (id) => {
     navigate(`/book/${id}`);
-    console.log(id);
+  
   };
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const BooksList = ({ logged }) => {
         {books.map((book, index) => (
           <Grid item key={index} xs={12} sm={6} md={4}>
             <Card
-              onClick={() => tester(book.id)}
+              onClick={() => redirect(book.id)}
               elevation={6}
               sx={{
                 height: "100%",
