@@ -99,15 +99,34 @@ const Book = () => {
           }}
         >
           <CardContent>
-           
+           <Box sx={{
+                
+              display: "flex",
+                flexDirection: "column",
+                }}>
+<Typography variant="h2" align="center"
+            color="#FF5F1F" 
+            fontSize={"3.1vw"}
+            fontWeight={"normal"}
+            marginBottom={"1vw"}>
+                Title: 
+            </Typography>
                 <Typography variant="h2" align="center"
             color="#FF5F1F"
             fontSize={"3.1vw"}
             fontWeight={"semibold"}
-            marginBottom={"1vw"}>
-            Title: {book.title}
+            marginBottom={"1vw"}
+           sx={
+            {
+                textDecoration: "underline",
+            }
+           }
+            >
+             {book.title}
             </Typography>
+            </Box>
             <Typography variant="h5"
+
             color="gray"
             fontSize={"2.1vw"}
             fontWeight={"semibold"}
@@ -194,7 +213,8 @@ const Book = () => {
             fontWeight: "semibold",
             marginBottom: "1vw",
             textAlign: "justify",
-            
+            lineHeight: "1.3",
+
         
         }}>
            {book.description}
