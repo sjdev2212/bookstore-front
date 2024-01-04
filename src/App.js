@@ -4,6 +4,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Navbar from './components/Navbar';
 import Book from './components/Book';
+import AdminPanel from './components/AdminPanel';
 import { useState, useEffect } from 'react';
 import {Routes, Route } from "react-router-dom";
 import {Toaster} from  'react-hot-toast'
@@ -40,6 +41,7 @@ function App() {
         <Route path="/book/:id" element={<Book  
         logged={logged}
         />} />
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
 
 

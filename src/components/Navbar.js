@@ -30,6 +30,17 @@ return (
 
   }} alt="logo" width="50" height="50" />
         </Typography>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Link to="/admin" style={{
+            textDecoration: "none",
+            color: "white",
+            fontSize: "1.5vw",
+            fontWeight: "semibold",
+            marginBottom: "1vw",
+            textAlign: "justify",
+            lineHeight: "1.3",
+          }}>Admin</Link>
+        </Typography>
 
         {/* Search Bar */}
         <div sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
