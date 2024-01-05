@@ -9,30 +9,31 @@ const AdminPanel = () => {
     const [price, setPrice] = useState('')
     const [isbn, setIsbn] = useState('')
     const [genre, setGenre] = useState('')
-    const [image_url, setImageUrl] = useState('')
+    const [imageFile, setImageFile] = useState(null);
     const [date, setDate] = useState('')
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        const data = {
-            title,
-            author,
-            description,
-            price,
-            isbn,
-            genre,
-            image_url,
-            date
-        }
-        try {
-            const res = await axios.post('http://localhost:5005/api/books', data)
-            console.log(res)
-        }
-        catch (err) {
-            console.log(err)
-        }
+      e.preventDefault();
+      
+      const formData = new FormData();
+      formData.append('book[title]', title);
+      formData.append('book[author]', author);
+      formData.append('book[description]', description);
+      formData.append('book[price]', price);
+      formData.append('book[isbn]', isbn);
+      formData.append('book[genre]', genre);
+      formData.append('book[date]', date);
+      formData.append('book[image]', imageFile);
 
-    }
+      try {
+        const res = await axios.post('http://localhost:5005/api/books', formData);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  
+
 
 
   return (
@@ -70,11 +71,8 @@ const AdminPanel = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
              />
-            <input type="file"
-            value={image_url}
-            onChange={(e) => setImageUrl(e.target.value)}
-
-             />
+              <input type="file" onChange={(e)  => setImageFile(e.target.files[0])} />
+        
            
             <input 
             type="number"
