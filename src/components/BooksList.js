@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -21,6 +22,19 @@ const BooksList = ({ logged }) => {
     navigate(`/book/${id}`);
   
   };
+
+  const deleteBook = (id) => {
+    axios
+      .delete(`http://localhost:5005/api/books/${id}`)
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   useEffect(() => {
     axios
@@ -103,7 +117,15 @@ const BooksList = ({ logged }) => {
                     justifyContent: "center",
                     alignItems: "center",
                   }}
-                ></CardContent>
+                >
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => deleteBook(book.id)}
+                  >
+                    Delete
+                  </Button>
+                </CardContent>
               ) : (
                 <></>
               )}

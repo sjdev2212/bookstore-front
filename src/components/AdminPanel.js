@@ -1,5 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
 import axios from 'axios'
 
 const AdminPanel = () => {
@@ -46,62 +49,144 @@ const AdminPanel = () => {
         Hello Admin
     </h1>
     <div>
-        <h2>
-            add book
-        </h2>
-        <form 
-        onSubmit={handleSubmit}
-        >
-            <input 
-            type="text" 
-            placeholder="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-             />
-            <input
-             type="text" 
-             placeholder="author"
-                value={author}
-                onChange={(e) => setAuthor(e.target.value)}
+        <h2 style={{
 
-              />
-            <input 
-            type="text" 
-            placeholder="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-             />
-              <input type="file" onChange={(e)  => setImageFile(e.target.files[0])} />
+            textAlign: "center",  
+            marginTop: "5vw",
+        }}>
+
+            Add book
+        </h2>
+        <Box 
+        component="main"
+        sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: '100vh',
+          }}
+        
+        >
+        <Box component="form"
+         onSubmit={handleSubmit} noValidate sx={{ 
+          width: '50vw',
+          height: '50vh',
+          display: 'flex',
+          flexDirection: 'column',
+}
+         }>
+        <TextField
+              margin="normal"
+              required
+              id="title"
+              label="title"
+              name="title"
+              value={title}
+              autoComplete="title"
+              autoFocus
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          
+       
+            <TextField
+              margin="normal"
+              required
+              id="author"
+              label="author"
+              name="author"
+              value={author}
+              autoComplete="author"
+              autoFocus
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              id="description"
+              label="description"
+              name="description"
+              type='textarea'
+              value={description}
+              autoComplete="description"
+              autoFocus
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          
+
+            <TextField
+              margin="normal"
+              required
+            
+              type="file"
+           
+   
+              autoFocus
+              onChange={(e)  => setImageFile(e.target.files[0])}
+            />
         
            
-            <input 
-            type="number"
-             placeholder="price" 
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+            <TextField
+              margin="normal"
+              required
+              id="price"
+              label="price"
+              name="price"
+              value={price}
+              autoComplete="price"
+              autoFocus
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              id="date"
+              label="date"
+              name="date"
+              type="date"
+              value={date}
+              autoComplete="date"
+              autoFocus
+              onChange={(e) => setDate(e.target.value)} 
+            
+            />
+            <TextField
+              margin="normal"
+              required
+              id="isbn"
+              label="isbn"
+              name="isbn"
+              value={isbn}
+              autoComplete="isbn"
+              autoFocus
+              onChange={(e) => setIsbn(e.target.value)}
+            />
 
-             />
-            <input
-             type="date" 
-             placeholder="date of publication"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
+            <TextField
+              margin="normal"
+              required
+              id="genre"
+              label="genre"
+              name="genre"
+              value={genre}
+              autoComplete="genre"
+              autoFocus
+              onChange={(e) => setGenre(e.target.value)}    
+            />
+        <Button type="submit" fullWidth variant="contained" sx={{ 
+          width: '20vw',
+          height: '50vw',
+          display: 'flex',
+          flexDirection: 'column',
+        margin : 'auto',
 
-              />
-            <input
-             type="number"
-              placeholder="isbn"
-                value={isbn}
-                onChange={(e) => setIsbn(e.target.value)}
-               />
-            <input
-             type="text" 
-             placeholder="genre"
-                value={genre}
-                onChange={(e) => setGenre(e.target.value)}
-              />
-            <button type="submit">add</button>
-        </form>
+         }}>
+Add Book
+        </Button> 
+        </Box>
+
+        </Box>
       
 
     </div>
