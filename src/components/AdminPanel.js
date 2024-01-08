@@ -1,82 +1,82 @@
-import React from 'react'
-import { useState } from 'react'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
-import axios from 'axios'
+import React from "react";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 const AdminPanel = () => {
-    const [title, setTitle] = useState('')
-    const [author, setAuthor] = useState('')
-    const [description, setDescription] = useState('')
-    const [price, setPrice] = useState('')
-    const [isbn, setIsbn] = useState('')
-    const [genre, setGenre] = useState('')
-    const [imageFile, setImageFile] = useState(null);
-    const [date, setDate] = useState('')
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [isbn, setIsbn] = useState("");
+  const [genre, setGenre] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [date, setDate] = useState("");
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData();
-      formData.append('book[title]', title);
-      formData.append('book[author]', author);
-      formData.append('book[description]', description);
-      formData.append('book[price]', price);
-      formData.append('book[isbn]', isbn);
-      formData.append('book[genre]', genre);
-      formData.append('book[date]', date);
-      formData.append('book[image]', imageFile);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      try {
-        const res = await axios.post('http://localhost:5005/api/books', formData);
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-  
+    const formData = new FormData();
+    formData.append("book[title]", title);
+    formData.append("book[author]", author);
+    formData.append("book[description]", description);
+    formData.append("book[price]", price);
+    formData.append("book[isbn]", isbn);
+    formData.append("book[genre]", genre);
+    formData.append("book[date]", date);
+    formData.append("book[image]", imageFile);
 
-
+    try {
+      const res = await axios.post("http://localhost:5005/api/books", formData);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
-    <h1 style={{
-        textAlign: "center",
-        marginTop: "5vw",
-
-    }}>
+      <h1
+        style={{
+          textAlign: "center",
+          marginTop: "5vw",
+        }}
+      >
         Hello Admin
-    </h1>
-    <div>
-        <h2 style={{
-
-            textAlign: "center",  
+      </h1>
+      <div>
+        <h2
+          style={{
+            textAlign: "center",
             marginTop: "5vw",
-        }}>
-
-            Add book
-        </h2>
-        <Box 
-        component="main"
-        sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            height: '100vh',
           }}
-        
         >
-        <Box component="form"
-         onSubmit={handleSubmit} noValidate sx={{ 
-          width: '50vw',
-          height: '50vh',
-          display: 'flex',
-          flexDirection: 'column',
-}
-         }>
-        <TextField
+          Add book
+        </h2>
+        <Box
+          component="main"
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{
+              width: "50vw",
+              height: "50vh",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <TextField
               margin="normal"
               required
               id="title"
@@ -87,8 +87,7 @@ const AdminPanel = () => {
               autoFocus
               onChange={(e) => setTitle(e.target.value)}
             />
-          
-       
+
             <TextField
               margin="normal"
               required
@@ -107,26 +106,21 @@ const AdminPanel = () => {
               id="description"
               label="description"
               name="description"
-              type='textarea'
+              type="textarea"
               value={description}
               autoComplete="description"
               autoFocus
               onChange={(e) => setDescription(e.target.value)}
             />
-          
 
             <TextField
               margin="normal"
               required
-            
               type="file"
-           
-   
               autoFocus
-              onChange={(e)  => setImageFile(e.target.files[0])}
+              onChange={(e) => setImageFile(e.target.files[0])}
             />
-        
-           
+
             <TextField
               margin="normal"
               required
@@ -148,8 +142,7 @@ const AdminPanel = () => {
               value={date}
               autoComplete="date"
               autoFocus
-              onChange={(e) => setDate(e.target.value)} 
-            
+              onChange={(e) => setDate(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -172,27 +165,27 @@ const AdminPanel = () => {
               value={genre}
               autoComplete="genre"
               autoFocus
-              onChange={(e) => setGenre(e.target.value)}    
+              onChange={(e) => setGenre(e.target.value)}
             />
-        <Button type="submit" fullWidth variant="contained" sx={{ 
-          width: '20vw',
-          height: '50vw',
-          display: 'flex',
-          flexDirection: 'column',
-        margin : 'auto',
-
-         }}>
-Add Book
-        </Button> 
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                width: "20vw",
+                height: "50vw",
+                display: "flex",
+                flexDirection: "column",
+                margin: "auto",
+              }}
+            >
+              Add Book
+            </Button>
+          </Box>
         </Box>
-
-        </Box>
-      
-
+      </div>
     </div>
-    
-    </div>
-  )
-}
+  );
+};
 
-export default AdminPanel
+export default AdminPanel;
