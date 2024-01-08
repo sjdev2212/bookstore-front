@@ -14,7 +14,7 @@ import axios from "axios";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import toast from "react-hot-toast";
 
-const SignIn = ({ loggedIn }) => {
+const SignIn = ({ loggedIn, isAdmin }) => {
   const navigate = useNavigate();
   const defaultTheme = createTheme();
 
@@ -29,7 +29,7 @@ const SignIn = ({ loggedIn }) => {
       .then((res) => {
     
        
-   
+   console.log(res.data.user.role);
         toast.success("Welcome back!", {
           duration: 4000,
           position: "top-center",
@@ -40,7 +40,9 @@ const SignIn = ({ loggedIn }) => {
           },
         });
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", res.data.user.role);
         loggedIn();
+        isAdmin();
         navigate("/");
       })
       .catch((err) => {
