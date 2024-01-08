@@ -5,7 +5,7 @@ import BooksList from "./BooksList";
 const Home = ({ logged }) => {
   return (
     <main>
-      {console.log(logged)}
+    
       <Container maxWidth="lg">
         <BooksList logged={logged} />
       </Container>
