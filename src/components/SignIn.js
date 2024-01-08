@@ -22,12 +22,14 @@ const SignIn = ({ loggedIn }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     axios
-      .post("https://rails-production-ed19.up.railway.app/login", {
+      .post("http://localhost:5005/login", {
         email: data.get("email"),
         password: data.get("password"),
       })
       .then((res) => {
-        console.log(res.data);
+    
+       
+   
         toast.success("Welcome back!", {
           duration: 4000,
           position: "top-center",
@@ -42,7 +44,16 @@ const SignIn = ({ loggedIn }) => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.data);
+        toast.error(err.response.data.error, {
+          duration: 4000,
+          position: "top-center",
+          icon: "😢",
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+        });
+
       });
   };
 
