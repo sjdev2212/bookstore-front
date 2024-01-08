@@ -15,19 +15,26 @@ function App() {
 
 
   const [logged , setLogged] = useState(false)
+  const [role , setRole] = useState('')
 
   const loggedIn = () => {
     localStorage.getItem('token') ? setLogged(true) : setLogged(false)
  }
+
+ const isAdmin = () => {
+  localStorage.getItem('role') === 'admin' ? setRole('admin') : setRole('user')
+}
  useEffect(() => {
   loggedIn();
-}, [logged]);
-  
+  isAdmin();
+}, [logged, role]);
+  console.log(role);
   return (
     <div>
       <Toaster />
       <Navbar  logged={logged} 
       loggedIn={loggedIn}
+      role={role}
       />
       
       <Routes>
@@ -37,6 +44,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn 
         loggedIn={loggedIn}
+        isAdmin={isAdmin}
          />} />
         <Route path="/book/:id" element={<Book  
         logged={logged}
