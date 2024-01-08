@@ -11,7 +11,8 @@ import Button from "@mui/material/Button";
 import logo from "../images/logo.png";
 import { toast } from "react-hot-toast";
 
-const Navbar = ({ logged, loggedIn }) => {
+const Navbar = ({ logged, loggedIn, role }) => {
+  console.log(logged)
   return (
     <>
       <AppBar
@@ -20,6 +21,18 @@ const Navbar = ({ logged, loggedIn }) => {
       >
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: "1.5vw",
+                fontWeight: "semibold",
+                marginBottom: "1vw",
+                textAlign: "justify",
+                lineHeight: "1.3",
+              }}
+            >
             <img
               src={logo}
               style={{
@@ -31,8 +44,12 @@ const Navbar = ({ logged, loggedIn }) => {
               width="50"
               height="50"
             />
+
+            </Link>
           </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          { logged  && role === 'admin' ? (
+            
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link
               to="/admin"
               style={{
@@ -48,6 +65,12 @@ const Navbar = ({ logged, loggedIn }) => {
               Admin
             </Link>
           </Typography>
+          ) : (
+
+            ""
+          )
+          }
+     
 
           {/* Search Bar */}
           <div sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
