@@ -9,11 +9,15 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
 const SignUp = () => {
   const defaultTheme = createTheme();
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,11 +29,23 @@ const SignUp = () => {
           name: data.get("name"),
           email: data.get("email"),
           password: data.get("password"),
+         
         },
       })
 
       .then((res) => {
         console.log(res);
+        navigate("/signin");
+        toast.success("User created!  Please Sign in", {
+          duration: 4000,
+          position: "top-center",
+          icon: "👏",
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+        });
+
       })
       .catch((err) => {
         console.log(err);
