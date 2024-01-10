@@ -22,7 +22,7 @@ const SignIn = ({ loggedIn, isAdmin }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     axios
-      .post("http://localhost:5005/login", {
+      .post("https://rails-production-ed19.up.railway.app/login", {
         email: data.get("email"),
         password: data.get("password"),
       })
@@ -30,7 +30,7 @@ const SignIn = ({ loggedIn, isAdmin }) => {
     
        
    console.log(res.data.user.role);
-        toast.success("Welcome back!", {
+        toast.success("Welcome!", {
           duration: 4000,
           position: "top-center",
           icon: "👏",
