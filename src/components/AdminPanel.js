@@ -29,7 +29,7 @@ const AdminPanel = () => {
     formData.append("book[image]", imageFile);
 
     try {
-      const res = await axios.post("http://localhost:5005/api/books", formData);
+      const res = await axios.post("https://rails-production-ed19.up.railway.app/api/books", formData);
       console.log(res);
     } catch (err) {
       console.log(err);
