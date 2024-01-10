@@ -7,13 +7,13 @@ import {
   Typography,
   Grid,
   Container,
-  Pagination,
+ 
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BooksList = ({ logged }) => {
+const BooksList = ({ logged, role }) => {
   const [books, setBooks] = useState([]);
 
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const BooksList = ({ logged }) => {
 
   const deleteBook = (id) => {
     axios
-      .delete(`http://localhost:5005/api/books/${id}`)
+      .delete(`https://rails-production-ed19.up.railway.app/api/books/${id}`)
       .then((res) => {
         console.log(res);
         navigate("/");
@@ -36,9 +36,10 @@ const BooksList = ({ logged }) => {
       });
   }
 
+
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/books")
+      .get("https://rails-production-ed19.up.railway.app/api/books")
       .then((res) => {
         setBooks(res.data);
       })
@@ -118,13 +119,21 @@ const BooksList = ({ logged }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => deleteBook(book.id)}
-                  >
-                    Delete
-                  </Button>
+                  {role === "admin" ? (
+                        <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => deleteBook(book.id)}
+                      >
+                        Delete
+                      </Button>
+                  ) : (
+                    <></>
+                  )
+                    
+                  }
+              
+            
                 </CardContent>
               ) : (
                 <></>
@@ -133,19 +142,7 @@ const BooksList = ({ logged }) => {
           </Grid>
         ))}
       </Grid>
-      <Pagination
-        count={10}
-        variant="outlined"
-        shape="rounded"
-        size="large"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "2vw",
-          marginBottom: "2vw",
-        }}
-      />
+ 
     </Container>
   );
 };
