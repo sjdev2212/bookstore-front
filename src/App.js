@@ -8,6 +8,7 @@ import AdminPanel from './components/AdminPanel';
 import { useState, useEffect } from 'react';
 import {Routes, Route } from "react-router-dom";
 import {Toaster} from  'react-hot-toast'
+import UpdateBook from './components/UpdateBook';
 
 
 
@@ -40,6 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home 
         logged={logged}
+        role={role}
          />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn 
@@ -48,6 +50,11 @@ function App() {
          />} />
         <Route path="/book/:id" element={<Book  
         logged={logged}
+        role={role}
+        />} />
+          <Route path="/books/:id" element={<UpdateBook
+        logged={logged}
+        role={role}
         />} />
         <Route path="/admin" element={<AdminPanel />} />
       </Routes>
