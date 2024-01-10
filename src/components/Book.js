@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
@@ -9,17 +10,36 @@ import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 
-const Book = ({ logged }) => {
+const Book = ({ logged ,role }) => {
   const { id } = useParams();
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+    const navigate = useNavigate();
+
+  const updateBook = (id) => {
+navigate(`/books/${id}`)
+      }
+
+  const deleteBook = (id) => {
+    axios
+      .delete(`https://rails-production-ed19.up.railway.app/api/books/${id}`)
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  
 
   const styleModal = {
     position: "absolute",
@@ -62,7 +82,7 @@ const Book = ({ logged }) => {
   `;
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/books/${id}`)
+      .get(`https://rails-production-ed19.up.railway.app/api/books/${id}`)
       .then((res) => {
         console.log(res.data);
         setBook(res.data);
@@ -189,12 +209,37 @@ const Book = ({ logged }) => {
             <br></br>
             <br></br>
             {logged ? (
+
+              role === "user" ? (
               <>
                 <StyledFavoriteIcon />
                 <StyledShoppingCartIcon />{" "}
               </>
+              ) : (
+<>
+                <Button
+                variant="contained"
+                color="warning"
+                onClick={() => deleteBook(book.id)}
+              >
+            Delete
+              </Button>
+
+<Button
+variant="contained"
+color="warning"
+onClick={() => updateBook(book.id)}
+>
+Update
+</Button>
+</>
+              )
+
+              
+              
             ) : (
-              ""
+          ""
+             
             )}
             <Modal
               open={open}
@@ -246,6 +291,7 @@ const Book = ({ logged }) => {
             }}
           />
         </Card>
+     
       </Container>
     </div>
   );
