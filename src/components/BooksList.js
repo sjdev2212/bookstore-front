@@ -11,10 +11,23 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+
+import PacmanLoader from "react-spinners/PacmanLoader";
 import { useNavigate } from "react-router-dom";
 
 const BooksList = ({ logged, role }) => {
   const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+}
+
+
+
 
   const navigate = useNavigate();
 
@@ -42,9 +55,11 @@ const BooksList = ({ logged, role }) => {
       .get("https://rails-production-ed19.up.railway.app/api/books")
       .then((res) => {
         setBooks(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err.data);
+
       });
   }, [logged]);
   return (
@@ -54,6 +69,9 @@ const BooksList = ({ logged, role }) => {
         marginTop: "5vw",
       }}
     >
+
+
+  
       <Typography
         variant="h1"
         align="center"
@@ -66,7 +84,32 @@ const BooksList = ({ logged, role }) => {
         Welcome to Bookshelf!
       </Typography>
 
-      {books.length === 0 ? "no books to show" : ""}
+  { loading ? (
+    <PacmanLoader
+    size={30}
+    color={"#FF5F1F"}
+    cssOverride={override}
+    aria-label="Loading Spinner"
+    data-testid="loader"
+    />
+  ) : 
+  books.length === 0 ? (
+    <Typography
+    variant="h2"
+    align="center"
+    color="#FF5F1F"
+    fontSize={"2vw"}
+    fontWeight={"semibold"}
+    marginBottom={"2vw"}
+    margin={"2vw"}
+  >
+    No books found
+  </Typography>
+  ) : (
+
+
+
+      
 
       <Grid container spacing={3}>
         {books.map((book, index) => (
@@ -142,6 +185,7 @@ const BooksList = ({ logged, role }) => {
           </Grid>
         ))}
       </Grid>
+      )}
  
     </Container>
   );
