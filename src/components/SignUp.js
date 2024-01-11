@@ -29,12 +29,12 @@ const SignUp = () => {
           name: data.get("name"),
           email: data.get("email"),
           password: data.get("password"),
+          
          
         },
       })
 
       .then((res) => {
-        console.log(res);
         navigate("/signin");
         toast.success("User created!  Please Sign in", {
           duration: 4000,
