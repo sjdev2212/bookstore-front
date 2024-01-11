@@ -13,33 +13,42 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "@mui/material/Modal";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
-const Book = ({ logged ,role }) => {
+const Book = ({ logged, role, userId }) => {
   const { id } = useParams();
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  console.log(userId);
 
   const updateBook = (id) => {
-navigate(`/books/${id}`)
-      }
+    navigate(`/books/${id}`);
+  };
 
   const deleteBook = (id) => {
     axios
       .delete(`https://rails-production-ed19.up.railway.app/api/books/${id}`)
       .then((res) => {
-        console.log(res);
         navigate("/");
+        toast.success("Book deleted!", {
+          duration: 4000,
+          position: "top-center",
+          icon: "👏",
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+        });
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-  
+  };
 
   const styleModal = {
     position: "absolute",
@@ -80,11 +89,36 @@ navigate(`/books/${id}`)
       transition: 0.8s ease;
     }
   `;
+  const addToFavorites = (bookId, user) => {
+try {
+  console.log(bookId, user)
+  axios.post(`http://localhost:5005/api/favorites`, {
+    book_id: bookId,
+    user_id: user,
+  })
+  .then((res) => {
+    console.log(res)
+    toast.success("Book added to favorites!", {
+      duration: 4000,
+      position: "top-center",
+      icon: "👏",
+      iconTheme: {
+        primary: "#000",
+        secondary: "#fff",
+      },
+    });
+  })
+
+  }
+  catch (err) {
+    console.log(err)
+  }
+  };
+    
   useEffect(() => {
     axios
       .get(`https://rails-production-ed19.up.railway.app/api/books/${id}`)
       .then((res) => {
-        console.log(res.data);
         setBook(res.data);
         setLoading(false);
       })
@@ -209,37 +243,40 @@ navigate(`/books/${id}`)
             <br></br>
             <br></br>
             {logged ? (
-
               role === "user" ? (
-              <>
-                <StyledFavoriteIcon />
-                <StyledShoppingCartIcon />{" "}
-              </>
+                <>
+                  <StyledFavoriteIcon 
+                  onClick={() => addToFavorites(book.id, userId)}
+                   />
+                  <StyledShoppingCartIcon />{" "}
+                </>
               ) : (
-<>
-                <Button
-                variant="contained"
-                color="warning"
-                onClick={() => deleteBook(book.id)}
-              >
-            Delete
-              </Button>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    onClick={() => deleteBook(book.id)}
+                  >
+                    Delete
+                  </Button>
 
-<Button
-variant="contained"
-color="warning"
-onClick={() => updateBook(book.id)}
->
-Update
-</Button>
-</>
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    onClick={() => updateBook(book.id)}
+                  >
+                    Update
+                  </Button>
+                </Box>
               )
-
-              
-              
             ) : (
-          ""
-             
+              ""
             )}
             <Modal
               open={open}
@@ -291,7 +328,6 @@ Update
             }}
           />
         </Card>
-     
       </Container>
     </div>
   );
