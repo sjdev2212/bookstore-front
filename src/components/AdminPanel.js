@@ -3,6 +3,10 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import {useNavigate} from "react-router-dom";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
 const AdminPanel = () => {
@@ -14,9 +18,13 @@ const AdminPanel = () => {
   const [genre, setGenre] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [date, setDate] = useState("");
+const [loading, setLoading] = useState(false);
 
+
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("book[title]", title);
@@ -30,31 +38,50 @@ const AdminPanel = () => {
 
     try {
       const res = await axios.post("https://rails-production-ed19.up.railway.app/api/books", formData);
+
       console.log(res);
+      setLoading(false);
+      navigate("/");
+      toast.success("Book added!", {
+        duration: 4000,
+        position: "top-center",
+        icon: "👏",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+      });
     } catch (err) {
       console.log(err);
+
     }
   };
 
   return (
     <div>
-      <h1
+      <Typography
+        variant="h2"
+        component="h1"  
         style={{
           textAlign: "center",
           marginTop: "5vw",
         }}
       >
-        Hello Admin
-      </h1>
-      <div>
-        <h2
-          style={{
-            textAlign: "center",
-            marginTop: "5vw",
-          }}
-        >
-          Add book
-        </h2>
+        Welcome Admin
+      </Typography>
+      {
+        loading ? (
+          <ClimbingBoxLoader
+            color={"#FF5F1F"}
+            size={20}
+            style={{
+              textAlign: "center",
+              marginTop: "5vw",
+            }}
+          />
+        ) : null
+      }
+
         <Box
           component="main"
           sx={{
@@ -184,7 +211,7 @@ const AdminPanel = () => {
           </Box>
         </Box>
       </div>
-    </div>
+    
   );
 };
 
