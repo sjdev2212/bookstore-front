@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const BooksList = ({ logged, role }) => {
   const [books, setBooks] = useState([]);
@@ -40,8 +41,16 @@ const override = {
     axios
       .delete(`https://rails-production-ed19.up.railway.app/api/books/${id}`)
       .then((res) => {
-        console.log(res);
         navigate("/");
+        toast.success("Book deleted!", {
+          duration: 4000,
+          position: "top-center",
+          icon: "👏",
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+        });
        
       })
       .catch((err) => {
