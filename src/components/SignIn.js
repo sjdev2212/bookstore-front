@@ -9,55 +9,13 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import toast from "react-hot-toast";
 
-const SignIn = ({ loggedIn, isAdmin }) => {
-  const navigate = useNavigate();
+
+const SignIn = ({ handleLogin }) => {
+
   const defaultTheme = createTheme();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    axios
-      .post("https://rails-production-ed19.up.railway.app/login", {
-        email: data.get("email"),
-        password: data.get("password"),
-      })
-      .then((res) => {
-    
-       
-   console.log(res.data.user.role);
-        toast.success("Welcome!", {
-          duration: 4000,
-          position: "top-center",
-          icon: "👏",
-          iconTheme: {
-            primary: "#000",
-            secondary: "#fff",
-          },
-        });
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("role", res.data.user.role);
-        loggedIn();
-        isAdmin();
-        navigate("/");
-      })
-      .catch((err) => {
-        toast.error(err.response.data.error, {
-          duration: 4000,
-          position: "top-center",
-          icon: "😢",
-          iconTheme: {
-            primary: "#000",
-            secondary: "#fff",
-          },
-        });
-
-      });
-  };
 
   return (
     <>
@@ -80,7 +38,7 @@ const SignIn = ({ loggedIn, isAdmin }) => {
             </Typography>
             <Box
               component="form"
-              onSubmit={handleSubmit}
+              onSubmit={handleLogin}
               noValidate
               sx={{ mt: 1 }}
             >
