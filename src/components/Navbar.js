@@ -12,7 +12,6 @@ import logo from "../images/logo.png";
 import { toast } from "react-hot-toast";
 
 const Navbar = ({ logged, loggedIn, role }) => {
-  console.log(logged)
   return (
     <>
       <AppBar
