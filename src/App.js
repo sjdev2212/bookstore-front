@@ -8,6 +8,9 @@ import AdminPanel from './components/AdminPanel';
 import { useState, useEffect } from 'react';
 import {Routes, Route } from "react-router-dom";
 import {Toaster} from  'react-hot-toast'
+import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 import UpdateBook from './components/UpdateBook';
 
 
@@ -17,6 +20,54 @@ function App() {
 
   const [logged , setLogged] = useState(false)
   const [role , setRole] = useState('')
+  const [userName , setUserName] = useState('')
+  const [userId , setUserId] = useState('')
+
+const navigate = useNavigate();
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    axios
+      .post("https://rails-production-ed19.up.railway.app/login", {
+        email: data.get("email"),
+        password: data.get("password"),
+      })
+      .then((res) => {
+    
+       
+
+        setUserName(res.data.user.name)
+        setUserId(res.data.user.id)
+        toast.success( `Welcome! ${userName}`, {
+          duration: 4000,
+          position: "top-center",
+          icon: "👏",
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+        });
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", res.data.user.role);
+        loggedIn();
+        isAdmin();
+        navigate("/");
+      })
+      .catch((err) => {
+        toast.error(err.response.data.error, {
+          duration: 4000,
+          position: "top-center",
+          icon: "😢",
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+        });
+
+      });
+  };
+
+
 
   const loggedIn = () => {
     localStorage.getItem('token') ? setLogged(true) : setLogged(false)
@@ -29,7 +80,6 @@ function App() {
   loggedIn();
   isAdmin();
 }, [logged, role]);
-  console.log(role);
   return (
     <div>
       <Toaster />
@@ -47,10 +97,12 @@ function App() {
         <Route path="/signin" element={<SignIn 
         loggedIn={loggedIn}
         isAdmin={isAdmin}
+        handleLogin={handleLogin}
          />} />
         <Route path="/book/:id" element={<Book  
         logged={logged}
         role={role}
+        userId={userId}
         />} />
           <Route path="/books/:id" element={<UpdateBook
         logged={logged}
