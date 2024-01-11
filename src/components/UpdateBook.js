@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useParams } from 'react-router-dom';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { toast } from "react-hot-toast";
 import { Button } from "@mui/material";
 import axios from "axios";
+
 
 
 const UpdateBook = () => {
@@ -34,12 +36,15 @@ const UpdateBook = () => {
     formData.append("book[genre]", genre);
     formData.append("book[date]", date);
     formData.append("book[image]", imageFile);
-    console.log(id);
-
 
     try {
+      if (title === "" || author === "" || description === "" || price === "" || isbn === "" || genre === "" || date === "" || !imageFile) {
+      toast.error("Please fill in all fields", {
+        });
+      return;
+      }
         const res = await axios.put(`https://rails-production-ed19.up.railway.app/api/books/${id}`, formData);
-        console.log(res);
+       console.log(res);
         } catch (err) {
         console.log(err);
         }
