@@ -67,7 +67,7 @@ const Book = ({ logged, role, userId }) => {
   };
 
   const StyledFavoriteIcon = styled(FavoriteIcon)`
-    margin-right: 12vw;
+    margin-right: 12.5vw;
     color: #ff5f1f;
     font-size: 3vw;
     cursor: pointer;
@@ -92,9 +92,8 @@ const Book = ({ logged, role, userId }) => {
   const addToFavorites = (bookId, user) => {
 try {
   console.log(bookId, user)
-  axios.post(`http://localhost:5005/api/favorites`, {
-    book_id: bookId,
-    user_id: user,
+  axios.post(`https://rails-production-ed19.up.railway.app/api/favorites/${user}/${bookId}`, {
+
   })
   .then((res) => {
     console.log(res)
