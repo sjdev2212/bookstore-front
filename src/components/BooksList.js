@@ -54,7 +54,7 @@ const override = {
        
       })
       .catch((err) => {
-        console.log(err,MessageEvent);
+        console.log(err);
       });
   }
 
