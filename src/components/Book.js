@@ -67,7 +67,7 @@ const Book = ({ logged, role, userId }) => {
   };
 
   const StyledFavoriteIcon = styled(FavoriteIcon)`
-    margin-right: 12.5vw;
+    margin-right: 12vw;
     color: #ff5f1f;
     font-size: 3vw;
     cursor: pointer;
