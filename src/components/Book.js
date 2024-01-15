@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ClearIcon from '@mui/icons-material/Clear';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -21,10 +22,11 @@ const Book = ({ logged, role, userId }) => {
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = React.useState(false);
+  const [favoriteMarked, setFavoriteMarked] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
-  console.log(userId);
+
 
   const updateBook = (id) => {
     navigate(`/books/${id}`);
@@ -78,6 +80,19 @@ const Book = ({ logged, role, userId }) => {
       transition: 1.2s ease;
     }
   `;
+
+  const StyledClearIcon = styled(ClearIcon)`
+  margin-right: 12vw;
+  color: #ff5f1f;
+  font-size: 3vw;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  &:hover {
+    color: red;
+    scale: 1.2;
+    transition: 1.2s ease;
+  }
+`;
   const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
     color: #ff5f1f;
     font-size: 3vw;
@@ -92,11 +107,11 @@ const Book = ({ logged, role, userId }) => {
   const addToFavorites = (bookId, user) => {
 try {
   console.log(bookId, user)
-  axios.post(`https://rails-production-ed19.up.railway.app/api/favorites/${user}/${bookId}`, {
+  axios.post(`http://localhost:5005/api/favorites/${user}/${bookId}`, {
 
   })
   .then((res) => {
-    console.log(res)
+   setFavoriteMarked(true)
     toast.success("Book added to favorites!", {
       duration: 4000,
       position: "top-center",
@@ -113,10 +128,34 @@ try {
     console.log(err)
   }
   };
+
+  const deleteFromFavorites = (bookId, user) => {
+    try {
+      console.log(bookId, user)
+      axios.delete(`http://localhost:5005/api/favorites/${user}/${bookId}`, {
+ })
+      .then((res) => {
+       setFavoriteMarked(false)
+        toast.success("Book deleted from favorites!", {
+          duration: 4000,
+          position: "top-center",
+          icon: "👏",
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+        });
+      })
+    
+      }
+      catch (err) {
+        console.log(err)
+      }
+      }
     
   useEffect(() => {
     axios
-      .get(`https://rails-production-ed19.up.railway.app/api/books/${id}`)
+      .get(`http://localhost:5005/api/books/${id}`)
       .then((res) => {
         setBook(res.data);
         setLoading(false);
@@ -244,10 +283,15 @@ try {
             {logged ? (
               role === "user" ? (
                 <>
-                  <StyledFavoriteIcon 
-                  onClick={() => addToFavorites(book.id, userId)}
-                   />
-                  <StyledShoppingCartIcon />{" "}
+                  {
+                    favoriteMarked ? (
+                      <StyledClearIcon onClick={() => deleteFromFavorites(book.id, userId)} />
+                    ) : (
+                      <StyledFavoriteIcon onClick={() => addToFavorites(book.id, userId)} />
+                    )
+                  }
+                  <StyledShoppingCartIcon />
+
                 </>
               ) : (
                 <Box
