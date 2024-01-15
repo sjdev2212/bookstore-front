@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -61,7 +60,7 @@ const override = {
 
   useEffect(() => {
     axios
-      .get("https://rails-production-ed19.up.railway.app/api/books")
+      .get("http://localhost:5005/api/books")
       .then((res) => {
         setBooks(res.data);
         setLoading(false);
