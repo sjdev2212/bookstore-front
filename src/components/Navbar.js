@@ -85,10 +85,18 @@ const Navbar = ({ logged, loggedIn, role }) => {
           </IconButton>
 
           {logged ? (
+            <>
+      <Link to="/favorites" style={{ textDecoration: "none" }}>
+              Favorites
+            </Link>
+          
             <Button
               color="inherit"
               onClick={() => {
                 localStorage.removeItem("token");
+                localStorage.removeItem("role");
+                localStorage.removeItem("user_name");
+                localStorage.removeItem("user_id");
                 toast.success("Until next time!", {
                   duration: 4000,
                   position: "top-center",
@@ -103,6 +111,7 @@ const Navbar = ({ logged, loggedIn, role }) => {
             >
               Logout
             </Button>
+            </>
           ) : (
             <Button color="inherit" component={Link} to="/signin">
               Login
