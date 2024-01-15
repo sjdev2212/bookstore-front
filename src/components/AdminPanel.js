@@ -37,7 +37,7 @@ const [loading, setLoading] = useState(false);
     formData.append("book[image]", imageFile);
 
     try {
-      const res = await axios.post("https://rails-production-ed19.up.railway.app/api/books", formData);
+      const res = await axios.post("http://localhost:5005/api/books", formData);
 
       console.log(res);
       setLoading(false);
