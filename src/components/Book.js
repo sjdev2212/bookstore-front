@@ -112,6 +112,7 @@ try {
   })
   .then((res) => {
    setFavoriteMarked(true)
+   localStorage.setItem("favorite", true)
     toast.success("Book added to favorites!", {
       duration: 4000,
       position: "top-center",
@@ -136,6 +137,7 @@ try {
  })
       .then((res) => {
        setFavoriteMarked(false)
+        localStorage.removeItem("favorite")
         toast.success("Book deleted from favorites!", {
           duration: 4000,
           position: "top-center",
@@ -159,6 +161,7 @@ try {
       .then((res) => {
         setBook(res.data);
         setLoading(false);
+        localStorage.getItem("favorite") ? setFavoriteMarked(true) : setFavoriteMarked(false)
       })
       .catch((err) => {
         console.log(err.data);
