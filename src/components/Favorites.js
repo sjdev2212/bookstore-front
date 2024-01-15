@@ -11,6 +11,7 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -109,6 +110,7 @@ const Favorites = () => {
           >
             {favorites.map((item) => (
               <>
+              <Link to={`/book/${item.book.id}`} style={{ textDecoration: "none" }}>
                 <ListItem
                   key={item.id}
                   sx={{
@@ -116,9 +118,18 @@ const Favorites = () => {
                     margin: "auto",
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                    border: "1px solid black",
+                    border: "1px solid #FF5F1F",
+                    borderRadius: "10px",
+                    ":hover": {
+                      transform: "scale(1.04)",
+                      transition: "all 0.5s ease-in-out",
+                      cursor: "pointer",
+                   
+                   
+                    },
                   }}
                 >
+                  
                   <ListItemAvatar>
                     <Avatar
                       alt="Remy Sharp"
@@ -175,6 +186,7 @@ const Favorites = () => {
                     Remove from favorites
                   </Button>
                 </ListItem>
+                </Link>
 
                 <Divider variant="inset" component="li" />
               </>
