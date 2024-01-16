@@ -27,7 +27,7 @@ const Favorites = () => {
   const deleteFromFavorites = (bookId, user) => {
     try {
       axios
-        .delete(`http://localhost:5005/api/favorites/${user}/${bookId}`, {})
+        .delete(`https://rails-production-ed19.up.railway.app/api/favorites/${user}/${bookId}`, {})
         .then((res) => {
           localStorage.removeItem("favorite");
           window.location.reload();
@@ -48,7 +48,7 @@ const Favorites = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/favorites/${user_id}`)
+      .get(`https://rails-production-ed19.up.railway.app/api/favorites/${user_id}`)
       .then((res) => {
         setFavorites(res.data);
         setLoading(false);

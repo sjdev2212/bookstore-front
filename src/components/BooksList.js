@@ -60,7 +60,7 @@ const override = {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/books")
+      .get("https://rails-production-ed19.up.railway.app/api/books")
       .then((res) => {
         setBooks(res.data);
         setLoading(false);

@@ -107,7 +107,7 @@ const Book = ({ logged, role, userId }) => {
   const addToFavorites = (bookId, user) => {
 try {
   console.log(bookId, user)
-  axios.post(`http://localhost:5005/api/favorites/${user}/${bookId}`, {
+  axios.post(`https://rails-production-ed19.up.railway.app/api/favorites/${user}/${bookId}`, {
 
   })
   .then((res) => {
@@ -133,7 +133,7 @@ try {
   const deleteFromFavorites = (bookId, user) => {
     try {
       console.log(bookId, user)
-      axios.delete(`http://localhost:5005/api/favorites/${user}/${bookId}`, {
+      axios.delete(`https://rails-production-ed19.up.railway.app/api/favorites/${user}/${bookId}`, {
  })
       .then((res) => {
        setFavoriteMarked(false)
@@ -157,7 +157,7 @@ try {
     
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/books/${id}`)
+      .get(`https://rails-production-ed19.up.railway.app/api/books/${id}`)
       .then((res) => {
         setBook(res.data);
         setLoading(false);
