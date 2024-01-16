@@ -26,7 +26,7 @@ function App() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     axios
-      .post("http://localhost:5005/login", {
+      .post("https://rails-production-ed19.up.railway.app/login", {
         email: data.get("email"),
         password: data.get("password"),
       })
