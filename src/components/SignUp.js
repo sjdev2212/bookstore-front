@@ -43,7 +43,7 @@ const SignUp = () => {
           position: "top-center",
           icon: "👏",
           iconTheme: {
-            primary: "#004",
+            primary: "#000",
             secondary: "#fff",
           },
         });
