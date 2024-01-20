@@ -29,6 +29,7 @@ const SignUp = () => {
           name: data.get("name"),
           email: data.get("email"),
           password: data.get("password"),
+         
           
           
          
@@ -42,7 +43,7 @@ const SignUp = () => {
           position: "top-center",
           icon: "👏",
           iconTheme: {
-            primary: "#000",
+            primary: "#004",
             secondary: "#fff",
           },
         });
