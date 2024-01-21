@@ -148,7 +148,7 @@ const override = {
                   height: "50%",
                   objectFit: "cover",
                   margin: "auto",
-                  marginTop: "4vw",
+                  marginTop: "2vw",
                   borderRadius: "10px",
 
                   }
