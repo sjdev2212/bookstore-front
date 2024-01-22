@@ -15,7 +15,7 @@ const Navbar = ({ logged, loggedIn, role }) => {
   return (
     <>
       <AppBar
-        position="fixed"
+        position="relative"
         sx={{ backgroundColor: "#D64430", height: "5vw", zIndex: "1000" }}
       >
         <Toolbar>
